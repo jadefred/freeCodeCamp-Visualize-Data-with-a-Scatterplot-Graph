@@ -1,3 +1,9 @@
 #canvas {
   background-color: floralwhite;
 }
+
+#tooltip {
+  visibility: hidden;
+  height: auto;
+  width: auto;
+}
