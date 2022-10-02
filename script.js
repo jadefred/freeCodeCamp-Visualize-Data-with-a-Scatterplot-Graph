@@ -20,14 +20,23 @@ const generateScales = (arr) => {
 
   yScale = d3
     .scaleTime()
-    // .domain([0, d3.max(arr, (item) => item.Time)])
-    .range([height - padding, padding]);
+    //format seconds to milliseconds before make it to be Date object
+    .domain([
+      d3.min(arr, (item) => {
+        return new Date(item.Seconds * 1000);
+      }),
+      d3.max(arr, (item) => {
+        return new Date(item.Seconds * 1000);
+      }),
+    ])
+    .range([padding, height - padding]);
 };
 
 const generateAxis = () => {
   //tickFormat here is to round up the number to integer (orginally is shown as eg:1,994)
   let xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
-  let yAxis = d3.axisLeft(yScale);
+  //timeFormat to reformat the time to be MM:SS
+  let yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%M:%S"));
 
   svg
     .append("g")
