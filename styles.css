@@ -1,9 +1,31 @@
+main {
+  text-align: center;
+}
+
 #canvas {
-  background-color: floralwhite;
+  background-color: whitesmoke;
+  padding: 30px;
 }
 
 #tooltip {
   visibility: hidden;
   height: auto;
-  width: auto;
+  width: 450px;
+  margin: auto;
+  background-color: whitesmoke;
+  border: 1px darkslategray solid;
+  padding: 0.7rem;
+}
+
+#legend {
+  margin: 1rem 0;
+  line-height: 1.2rem;
+}
+
+.dot:hover {
+  cursor: pointer;
+}
+
+g {
+  color: darkslategray;
 }
