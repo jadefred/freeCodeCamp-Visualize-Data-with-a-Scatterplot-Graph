@@ -25,7 +25,8 @@ const generateScales = (arr) => {
 };
 
 const generateAxis = () => {
-  let xAxis = d3.axisBottom(xScale);
+  //tickFormat here is to round up the number to integer (orginally is shown as eg:1,994)
+  let xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
   let yAxis = d3.axisLeft(yScale);
 
   svg
@@ -41,6 +42,25 @@ const generateAxis = () => {
     .attr("transform", "translate(" + padding + ", 0)");
 };
 
+const drawPoints = (arr) => {
+  svg
+    .selectAll("circle")
+    .data(arr)
+    .enter()
+    .append("circle")
+    .attr("class", "dot")
+    .attr("r", "5")
+    .attr("data-xvalue", (item) => {
+      return item.Year;
+    })
+    .attr("data-yvalue", (item) => {
+      return new Date(item.Seconds * 1000);
+    })
+    .attr("cx", (item) => {
+      return xScale(item.Year);
+    });
+};
+
 async function fetchData() {
   const response = await fetch(url);
   const data = await response.json();
@@ -48,6 +68,7 @@ async function fetchData() {
   drawContainer();
   generateScales(data);
   generateAxis();
+  drawPoints(data);
 }
 
 fetchData();
